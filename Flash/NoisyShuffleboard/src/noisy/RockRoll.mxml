@@ -1620,8 +1620,8 @@
 	
 	<!-- MovieContainer -->
 	<s:BorderContainer id="MovieContainer" x="0" y="0" width="{this.width}" height="{this.height}" borderVisible="true" backgroundColor="#93ae93">
-		<s:MovieClipSWFLoader id="introMovie" x="0" y="0" width="{this.width}" height="{this.width}" source="/Users/russphelan/Documents/SRRI/TP-data-games.git/Flash/NoisyShuffleboard/src/noisy/rockroll_assets/intro-movie.swf"/>
-		<s:SWFLoader id="playButton" x="340" y="300" width="120" height="43" complete="initPlayButton()"  source="/Users/russphelan/Documents/SRRI/TP-data-games.git/Flash/NoisyShuffleboard/src/noisy/rockroll_assets/play_btn.swf"/>
+		<s:MovieClipSWFLoader id="introMovie" x="0" y="0" width="{this.width}" height="{this.width}" source="/src/rockroll_assets/intro-movie.swf"/>
+		<s:SWFLoader id="playButton" x="340" y="300" width="120" height="43" complete="initPlayButton()"  source="/src/rockroll_assets/play_btn.swf"/>
 	</s:BorderContainer>  
 
 	<!-- Error message for bad version of flash player -->	
