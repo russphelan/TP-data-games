@@ -15,8 +15,8 @@ package chainsaw.crossfade_handler{
 		private var mframeRate:uint = 24;
 		private var mDeltaVol:Number = 1/mNumberOfSteps; //size of each volume increment
 		private var mNumberOfSteps:uint = mFadeTime/mTickLength; //number of volume increments to get from 0 to 1 vol
-		private var mFadeTime:uint = 1000; //time the fade takes in ms
-		private var mTickLength:Number = mFadeTime/mNumberOfSteps;
+		private var mFadeTime:uint; //time the fade takes  ms
+		private var mTickLength:Number = (1/mframeRate)*1000 //tick length in ms
 		private var mSound:Sound
 		private var mChannel:SoundChannel;
 		

@@ -1,8 +1,9 @@
 package chainsaw.crossfade_handler
 {
+	import chainsaw.crossfade_handler.DataTimerEvent;
+	
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
-	import chainsaw.crossfade_handler.DataTimerEvent;
 	
 	public class DataTimer extends Timer
 	{
@@ -16,7 +17,7 @@ package chainsaw.crossfade_handler
 		}
 		
 		private function dispatchDataEvent(te:TimerEvent):void{
-			dispatchEvent(new DataTimerEvent.TICK_WITH_DATA)
+			dispatchEvent(new DataTimerEvent(DataTimerEvent.TICK_WITH_DATA));
 		}
 	}
 }

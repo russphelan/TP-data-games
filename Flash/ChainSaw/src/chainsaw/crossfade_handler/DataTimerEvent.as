@@ -11,7 +11,7 @@ package chainsaw.crossfade_handler
 		public var channel:SoundChannel;
 		public var trans:SoundTransform;
 		
-		public function TimerFadeEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
+		public function DataTimerEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
 			super(type, bubbles, cancelable);
 		}
