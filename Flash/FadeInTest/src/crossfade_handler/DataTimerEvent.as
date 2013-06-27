@@ -1,4 +1,4 @@
-package chainsaw.crossfade_handler
+package crossfade_handler
 {
 	import flash.events.TimerEvent;
 	import flash.media.SoundChannel;

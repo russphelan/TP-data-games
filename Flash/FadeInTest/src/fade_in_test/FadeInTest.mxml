@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600"
+			   creationComplete = "main()">
+	
+	<fx:Script>
+		import crossfade_handler.*;
+		
+		
+		[Embed("../src/test_assets/longBogDown.mp3")]
+		private var ChainsawSoundMP3:Class;
+		private var mSound:Sound = new ChainsawSoundMP3() as Sound; 
+		
+		
+		
+		public function main():void{
+			fadeTest();
+		}
+		
+		private function fadeTest():void{
+			var mfade:FadeHandler = new FadeHandler(mSound, 3000);
+			mfade.fadeIn();
+		}
+		
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+</s:Application>

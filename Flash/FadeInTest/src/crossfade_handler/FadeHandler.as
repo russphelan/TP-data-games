@@ -1,4 +1,4 @@
-package chainsaw.crossfade_handler{
+package crossfade_handler{
 	import flash.events.Event;
 	
 	public class FadeHandler{
@@ -10,7 +10,7 @@ package chainsaw.crossfade_handler{
 		import flash.media.SoundMixer;
 		import flash.media.SoundTransform;
 		import flash.utils.Timer;
-		import chainsaw.crossfade_handler.DataTimer;
+		import crossfade_handler.DataTimer;
 		
 		private var mframeRate:uint = 24;
 		private var mDeltaVol:Number = 1/mNumberOfSteps; //size of each volume increment

@@ -1,6 +1,6 @@
-package chainsaw.crossfade_handler
+package crossfade_handler
 {
-	import chainsaw.crossfade_handler.DataTimerEvent;
+	import crossfade_handler.DataTimerEvent;
 	
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
