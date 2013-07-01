@@ -6,13 +6,13 @@ package odyssey.events
 	// dispatches rat related events. 
 	public class RatEventDispatcher extends EventDispatcher
 	{				
-		public function dispatchReleased(e:Event= null):void
+		public function dispatchReleased(e:Event = null):void
 		{			
 			// call this method when you've sent out the rats.
 			dispatchEvent( new RatEvent( RatEvent.RELEASED));	
 		}
 		
-		public function dispatchReturned(e:Event= null):void
+		public function dispatchReturned(e:Event = null):void
 		{
 			dispatchEvent( new RatEvent( RatEvent.RETURNED));	
 		}
@@ -20,6 +20,10 @@ package odyssey.events
 		public function dispatchCancelled( e:Event = null):void
 		{
 			dispatchEvent (new RatEvent ( RatEvent.CANCELLED));
+		}
+		
+		public function dispatchEnterWater(e:Event = null):void{
+			dispatchEvent(new RatEvent(RatEvent.ENTERED_WATER));
 		}
 	}
 }

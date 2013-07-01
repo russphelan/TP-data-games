@@ -147,6 +147,9 @@
 			//timer when your money hits zero, waits before showing lose screen
 			private var endTimer:Timer;
 			
+			//variable for array of splashes embedded later
+			private var mSplashArray:Array = new Array(10);
+			
 			// ********** END OF TREASURE HUNT CONSTANTS AND VARIABLES **********
 			
 			// Embed the start screen pirate ship graphic.
@@ -242,10 +245,53 @@
 			// New Cash register sound by Benboncan (only modification is converted to MP3)
 			// Downloaded from http://www.freesound.org/people/Benboncan/sounds/91924/ on Feb 7, 2012
 			// Licensed under the attribution license (http://creativecommons.org/licenses/by/3.0/)
-			[Embed(source="../embedded_assets/91924-benboncan-till-with-bell.mp3")]
+			 [Embed(source="../embedded_assets/91924-benboncan-till-with-bell.mp3")]
 			private var CashMP3:Class;
 			private var mCashSound:SoundAsset = new CashMP3() as SoundAsset;
 			
+			//rat splash sounds
+			[Embed(source="../embedded_assets/splash1.mp3")]
+			private var splash1MP3:Class;
+			
+			[Embed(source="../embedded_assets/splash2.mp3")]
+			private var splash2MP3:Class;
+			private var mSplash2:SoundAsset = new splash2MP3() as SoundAsset;
+
+			[Embed(source="../embedded_assets/splash3.mp3")]
+			private var splash3MP3:Class;
+			private var mSplash3:SoundAsset = new splash3MP3() as SoundAsset;
+
+			[Embed(source="../embedded_assets/splash4.mp3")]
+			private var splash4MP3:Class;
+			private var mSplash4:SoundAsset = new splash4MP3() as SoundAsset;
+
+			[Embed(source="../embedded_assets/splash5.mp3")]
+			private var splash5MP3:Class;
+			private var mSplash5:SoundAsset = new splash5MP3() as SoundAsset;
+
+			[Embed(source="../embedded_assets/splash6.mp3")]
+			private var splash6MP3:Class;
+			private var mSplash6:SoundAsset = new splash6MP3() as SoundAsset;
+
+			[Embed(source="../embedded_assets/splash7.mp3")]
+			private var splash7MP3:Class;
+			private var mSplash7:SoundAsset = new splash7MP3() as SoundAsset;
+
+			[Embed(source="../embedded_assets/splash8.mp3")]
+			private var splash8MP3:Class;
+			private var mSplash8:SoundAsset = new splash8MP3() as SoundAsset;
+
+			[Embed(source="../embedded_assets/splash9.mp3")]
+			private var splash9MP3:Class;
+			private var mSplash9:SoundAsset = new splash9MP3() as SoundAsset;
+
+			[Embed(source="../embedded_assets/splash10.mp3")]
+			private var splash10MP3:Class;
+			private var mSplash10:SoundAsset = new splash10MP3() as SoundAsset; 
+			
+			mSplashArray[0] = new splash1MP3() as SoundAsset;
+
+
 			// Embed the rat squeal sound in the Treasure Hunt game.
 			// The link from which the sound came no longer exists as of 10/28/2011. The larger
 			// web site from which the sound came redirects to another site.
@@ -1377,6 +1423,7 @@
 				DivingRatDirector.dispatcher.addEventListener(RatEvent.RELEASED, disableRatButton);
 				DivingRatDirector.dispatcher.addEventListener(RatEvent.RETURNED, finishRatDive);
 				bootyMeter.dispatcher.addEventListener(BootyEvent.LOSE, popUpScreen.loseGame);
+				//DivingRatDirector.dispatcher.addEventListener(RatEvent.ENTERED_WATER, ratSplashHandler);
 			}
 		
 			// attach the booty bar to the screen. And popups
@@ -1385,6 +1432,21 @@
 				popUpContainer.addChild(popUpScreen);
 				popUpScreen.visible = false;
 			}	
+			
+			//generates random splash sounds for rats
+			/* private function ratSplashHandler(e:RatEvent):void{
+				var i:int = Math.random()*9;//random int, 0-9
+				
+				if(mSplashArray[i] != mLastSplash){//if the randomly selected
+					//splash is different than the
+					//last one we played...
+					mSplashArray[i].play();        //play it
+				}else{
+					ratSplashHandler(e);//otherwise, call this function again to
+					//get new random number
+				}
+			} */
+
 			
 			//********** Title Bar Volume Control*********
 			private function updateVolume(vol:Number):void
