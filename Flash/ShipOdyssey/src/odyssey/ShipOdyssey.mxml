@@ -81,6 +81,7 @@
 			public static const kGamesCollectionName:String = "Games";
 			public static const kTimeBeforeWin:int = 3000;
 			public static const kTimeBeforeLose:int = 3000;
+			public static const kRatsPerSplash:uint = 5; //number of rats hitting water per splash heard
 			
 			public var mNumTreasures:uint = 1;	// Number of treasures to find.
 			
@@ -148,7 +149,13 @@
 			private var endTimer:Timer;
 			
 			//variable for vector of splashes embedded later
-			private var mSoundsArrayVec:Vector.<Sound> = new Vector.<Sound>();
+			private var mSplashVec:Vector.<Sound> = new Vector.<Sound>();
+			
+			//stores last splash played so that we don't play the same one back to back
+			private var mLastSplash:Sound;
+			
+			//counts calls to ratSplashHandler so we can control number of splash sounds per number of rats
+			private var callCounter:uint = 0;
 
 			
 			// ********** END OF TREASURE HUNT CONSTANTS AND VARIABLES **********
@@ -293,16 +300,16 @@
 			
 			//puts embedded splashes in vector. If you can think of a better way to write this, PLEASE DO. 
 			private function initSplashes():void{
-				mSoundsArrayVec[0] = mSplash1;
-				mSoundsArrayVec[1] = mSplash2;
-				mSoundsArrayVec[2] = mSplash3;
-				mSoundsArrayVec[3] = mSplash4;
-				mSoundsArrayVec[4] = mSplash5;
-				mSoundsArrayVec[5] = mSplash6;
-				mSoundsArrayVec[6] = mSplash7;
-				mSoundsArrayVec[7] = mSplash8;
-				mSoundsArrayVec[8] = mSplash9;
-				mSoundsArrayVec[9] = mSplash10;
+				mSplashVec[0] = mSplash1;
+				mSplashVec[1] = mSplash2;
+				mSplashVec[2] = mSplash3;
+				mSplashVec[3] = mSplash4;
+				mSplashVec[4] = mSplash5;
+				mSplashVec[5] = mSplash6;
+				mSplashVec[6] = mSplash7;
+				mSplashVec[7] = mSplash8;
+				mSplashVec[8] = mSplash9;
+				mSplashVec[9] = mSplash10;
 			}
 			
 			// Embed the rat squeal sound in the Treasure Hunt game.
@@ -1437,7 +1444,7 @@
 				DivingRatDirector.dispatcher.addEventListener(RatEvent.RELEASED, disableRatButton);
 				DivingRatDirector.dispatcher.addEventListener(RatEvent.RETURNED, finishRatDive);
 				bootyMeter.dispatcher.addEventListener(BootyEvent.LOSE, popUpScreen.loseGame);
-				//DivingRatDirector.dispatcher.addEventListener(RatEvent.ENTERED_WATER, ratSplashHandler);
+				DivingRatDirector.dispatcher.addEventListener(RatEvent.ENTERED_WATER, ratSplashHandler);
 			}
 		
 			// attach the booty bar to the screen. And popups
@@ -1448,20 +1455,25 @@
 			}	
 			
 			//generates random splash sounds for rats
-			/* private function ratSplashHandler(e:RatEvent):void{
-				var i:int = Math.random()*9;//random int, 0-9
+			private function ratSplashHandler(e:RatEvent):void{
+				 callCounter = (callCounter+1) % kRatsPerSplash; //play one splash per kRatsPerSplash rats
 				
-				if(mSplashArray[i] != mLastSplash){//if the randomly selected
-					//splash is different than the
-					//last one we played...
-					mSplashArray[i].play();        //play it
-				}else{
-					ratSplashHandler(e);//otherwise, call this function again to
-					//get new random number
-				}
-			} */
+				if(callCounter == 1){
+					var i:int = Math.random()*9;//random int, 0-9
+					
+					if(mSplashVec[i] != mLastSplash){//if the randomly selected
+						//splash is different than the
+						//last one we played...
+						mSplashVec[i].play();        //play it
+						mLastSplash = mSplashVec[i];
+					}else{
+						ratSplashHandler(e);//otherwise, call this function again to
+						//get new random number
+					}}else{
+						return;
+					}
+			} 
 
-			
 			//********** Title Bar Volume Control*********
 			private function updateVolume(vol:Number):void
 			{
