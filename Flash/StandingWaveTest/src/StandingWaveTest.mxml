@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600"
+			   creationComplete = "main()">
+	<fx:Script>
+	
+			
+			import com.noteflight.standingwave3.elements.*;
+			import com.noteflight.standingwave3.filters.*;
+			import com.noteflight.standingwave3.formats.*;
+			import com.noteflight.standingwave3.generators.*;
+			import com.noteflight.standingwave3.modulation.*;
+			import com.noteflight.standingwave3.output.*;
+			import com.noteflight.standingwave3.performance.*;
+			import com.noteflight.standingwave3.sources.*;		
+			import com.noteflight.standingwave3.utils.*; 
+
+			
+			
+			private function main():void{
+				
+				
+				  
+				
+			}
+			
+			
+			
+
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:Application>
