@@ -147,8 +147,9 @@
 			//timer when your money hits zero, waits before showing lose screen
 			private var endTimer:Timer;
 			
-			//variable for array of splashes embedded later
-			private var mSplashArray:Array = new Array(10);
+			//variable for vector of splashes embedded later
+			private var mSoundsArrayVec:Vector.<Sound> = new Vector.<Sound>();
+
 			
 			// ********** END OF TREASURE HUNT CONSTANTS AND VARIABLES **********
 			
@@ -252,46 +253,58 @@
 			//rat splash sounds
 			[Embed(source="../embedded_assets/splash1.mp3")]
 			private var splash1MP3:Class;
-			
+			private var mSplash1:Sound = new splash1MP3 as Sound;
+
 			[Embed(source="../embedded_assets/splash2.mp3")]
 			private var splash2MP3:Class;
-			private var mSplash2:SoundAsset = new splash2MP3() as SoundAsset;
+			private var mSplash2:Sound = new splash2MP3 as Sound;
 
 			[Embed(source="../embedded_assets/splash3.mp3")]
 			private var splash3MP3:Class;
-			private var mSplash3:SoundAsset = new splash3MP3() as SoundAsset;
+			private var mSplash3:Sound = new splash3MP3() as Sound;
 
 			[Embed(source="../embedded_assets/splash4.mp3")]
 			private var splash4MP3:Class;
-			private var mSplash4:SoundAsset = new splash4MP3() as SoundAsset;
-
+			private var mSplash4:Sound = new splash4MP3() as Sound;
+ 
 			[Embed(source="../embedded_assets/splash5.mp3")]
 			private var splash5MP3:Class;
-			private var mSplash5:SoundAsset = new splash5MP3() as SoundAsset;
+			private var mSplash5:Sound = new splash5MP3() as Sound;
 
 			[Embed(source="../embedded_assets/splash6.mp3")]
 			private var splash6MP3:Class;
-			private var mSplash6:SoundAsset = new splash6MP3() as SoundAsset;
+			private var mSplash6:Sound = new splash6MP3() as Sound;
 
 			[Embed(source="../embedded_assets/splash7.mp3")]
 			private var splash7MP3:Class;
-			private var mSplash7:SoundAsset = new splash7MP3() as SoundAsset;
+			private var mSplash7:Sound = new splash7MP3() as Sound;
 
 			[Embed(source="../embedded_assets/splash8.mp3")]
 			private var splash8MP3:Class;
-			private var mSplash8:SoundAsset = new splash8MP3() as SoundAsset;
+			private var mSplash8:Sound = new splash8MP3() as Sound;
 
 			[Embed(source="../embedded_assets/splash9.mp3")]
 			private var splash9MP3:Class;
-			private var mSplash9:SoundAsset = new splash9MP3() as SoundAsset;
+			private var mSplash9:Sound = new splash9MP3() as Sound;
 
 			[Embed(source="../embedded_assets/splash10.mp3")]
 			private var splash10MP3:Class;
-			private var mSplash10:SoundAsset = new splash10MP3() as SoundAsset; 
+			private var mSplash10:Sound = new splash10MP3() as Sound; 
 			
-			mSplashArray[0] = new splash1MP3() as SoundAsset;
-
-
+			//puts embedded splashes in vector. If you can think of a better way to write this, PLEASE DO. 
+			private function initSplashes():void{
+				mSoundsArrayVec[0] = mSplash1;
+				mSoundsArrayVec[1] = mSplash2;
+				mSoundsArrayVec[2] = mSplash3;
+				mSoundsArrayVec[3] = mSplash4;
+				mSoundsArrayVec[4] = mSplash5;
+				mSoundsArrayVec[5] = mSplash6;
+				mSoundsArrayVec[6] = mSplash7;
+				mSoundsArrayVec[7] = mSplash8;
+				mSoundsArrayVec[8] = mSplash9;
+				mSoundsArrayVec[9] = mSplash10;
+			}
+			
 			// Embed the rat squeal sound in the Treasure Hunt game.
 			// The link from which the sound came no longer exists as of 10/28/2011. The larger
 			// web site from which the sound came redirects to another site.
@@ -317,6 +330,7 @@
 			// and sets up necessary parameters for game initiation.			
 			private	function startUp():void	
 			{
+				initSplashes();
 				BrickWall.visible = false;
 				mRandomNormal	= new ParkMiller();		// Create class that generates a normal distribution.
 				this.sendCollectionData();		//		set it up so we can emit data
