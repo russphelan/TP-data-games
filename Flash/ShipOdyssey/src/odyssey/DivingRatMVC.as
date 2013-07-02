@@ -5,6 +5,8 @@ package odyssey
 	
 	// The rat MovieClip.
 	public class DivingRatMVC extends red_dot{	
+		
+		import odyssey.events.RatEventDispatcher;
 
 		private static const MAX_SPEED:int = 17; // the fastest a rat can move
 		private static const STARTING_DIVE_SPEED:int = 8; // how fast the rat falls when it dives
@@ -15,6 +17,8 @@ package odyssey
 		private static const UNDERWATER:int = 1;
 		private static const RETURNING:int = 2;
 		private static const FINISHED:int = -1;
+		
+		private static var _dispatcher:RatEventDispatcher = new RatEventDispatcher(); // object that dispatches rat events		
 		
 		private var surfacingPosition:Number;
 		private var _age:int = 0;
@@ -71,6 +75,8 @@ package odyssey
 					y = GameScreen.WATER_Y;
 					rat.gotoAndPlay("splash");
 					DivingRatDirector.addSplash(x, true);
+					_dispatcher.dispatchEnterWater(); //send event for rats entering water from above. for sounds.
+					trace("Entered water!");
 				}
 			} else if( _state == RETURNING )
 			{				
@@ -116,6 +122,9 @@ package odyssey
 		// the rat is ready to pop back out of the water.
 		public function rise():void
 		{
+			_dispatcher.dispatchExitWater(); //send event into flow for rats leaving water. triggers splash sounds
+			trace("Exited Water!");
+			
 			_speed = STARTING_RISE_SPEED;
 			rat.gotoAndPlay( "leap");
 			_state = 2; // the rat is re-surfacing
@@ -140,6 +149,10 @@ package odyssey
 			}
 			
 			DivingRatDirector.addSplash(x, false);
+		}
+		
+		public static function get dispatcher():RatEventDispatcher {						
+			return _dispatcher;		
 		}
 	}
 }

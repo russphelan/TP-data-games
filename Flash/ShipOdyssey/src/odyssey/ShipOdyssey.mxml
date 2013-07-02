@@ -150,9 +150,11 @@
 			
 			//variable for vector of splashes embedded later
 			private var mSplashVec:Vector.<Sound> = new Vector.<Sound>();
+			private var mSplashRVec:Vector.<Sound> = new Vector.<Sound>();
 			
 			//stores last splash played so that we don't play the same one back to back
 			private var mLastSplash:Sound;
+			private var mLastSplashR:Sound;
 			
 			//counts calls to ratSplashHandler so we can control number of splash sounds per number of rats
 			private var callCounter:uint = 0;
@@ -298,6 +300,47 @@
 			private var splash10MP3:Class;
 			private var mSplash10:Sound = new splash10MP3() as Sound; 
 			
+			//rat splash reverse sounds
+			[Embed(source="../embedded_assets/splash1r.mp3")]
+			private var splash1rMP3:Class;
+			private var mSplash1r:Sound = new splash1rMP3 as Sound;
+			
+			[Embed(source="../embedded_assets/splash2r.mp3")]
+			private var splash2rMP3:Class;
+			private var mSplash2r:Sound = new splash2rMP3 as Sound;
+			
+			[Embed(source="../embedded_assets/splash3r.mp3")]
+			private var splash3rMP3:Class;
+			private var mSplash3r:Sound = new splash3rMP3() as Sound;
+			
+			[Embed(source="../embedded_assets/splash4r.mp3")]
+			private var splash4rMP3:Class;
+			private var mSplash4r:Sound = new splash4rMP3() as Sound;
+			
+			[Embed(source="../embedded_assets/splash5r.mp3")]
+			private var splash5rMP3:Class;
+			private var mSplash5r:Sound = new splash5rMP3() as Sound;
+			
+			[Embed(source="../embedded_assets/splash6r.mp3")]
+			private var splash6rMP3:Class;
+			private var mSplash6r:Sound = new splash6rMP3() as Sound;
+			
+			[Embed(source="../embedded_assets/splash7r.mp3")]
+			private var splash7rMP3:Class;
+			private var mSplash7r:Sound = new splash7rMP3() as Sound;
+			
+			[Embed(source="../embedded_assets/splash8r.mp3")]
+			private var splash8rMP3:Class;
+			private var mSplash8r:Sound = new splash8rMP3() as Sound;
+			
+			[Embed(source="../embedded_assets/splash9r.mp3")]
+			private var splash9rMP3:Class;
+			private var mSplash9r:Sound = new splash9rMP3() as Sound;
+			
+			[Embed(source="../embedded_assets/splash10r.mp3")]
+			private var splash10rMP3:Class;
+			private var mSplash10r:Sound = new splash10rMP3() as Sound; 
+			
 			//puts embedded splashes in vector. If you can think of a better way to write this, PLEASE DO. 
 			private function initSplashes():void{
 				mSplashVec[0] = mSplash1;
@@ -310,6 +353,17 @@
 				mSplashVec[7] = mSplash8;
 				mSplashVec[8] = mSplash9;
 				mSplashVec[9] = mSplash10;
+				
+				mSplashRVec[0] = mSplash1r;
+				mSplashRVec[1] = mSplash2r;
+				mSplashRVec[2] = mSplash3r;
+				mSplashRVec[3] = mSplash4r;
+				mSplashRVec[4] = mSplash5r;
+				mSplashRVec[5] = mSplash6r;
+				mSplashRVec[6] = mSplash7r;
+				mSplashRVec[7] = mSplash8r;
+				mSplashRVec[8] = mSplash9r;
+				mSplashRVec[9] = mSplash10r;
 			}
 			
 			// Embed the rat squeal sound in the Treasure Hunt game.
@@ -1444,7 +1498,8 @@
 				DivingRatDirector.dispatcher.addEventListener(RatEvent.RELEASED, disableRatButton);
 				DivingRatDirector.dispatcher.addEventListener(RatEvent.RETURNED, finishRatDive);
 				bootyMeter.dispatcher.addEventListener(BootyEvent.LOSE, popUpScreen.loseGame);
-				DivingRatDirector.dispatcher.addEventListener(RatEvent.ENTERED_WATER, ratSplashHandler);
+				DivingRatMVC.dispatcher.addEventListener(RatEvent.ENTERED_WATER, ratSplashHandler);
+				DivingRatMVC.dispatcher.addEventListener(RatEvent.EXITED_WATER, ratSplashHandler);
 			}
 		
 			// attach the booty bar to the screen. And popups
@@ -1456,22 +1511,42 @@
 			
 			//generates random splash sounds for rats
 			private function ratSplashHandler(e:RatEvent):void{
-				 callCounter = (callCounter+1) % kRatsPerSplash; //play one splash per kRatsPerSplash rats
 				
-				if(callCounter == 1){
-					var i:int = Math.random()*9;//random int, 0-9
+				callCounter = (callCounter+1) % kRatsPerSplash; //play one splash per kRatsPerSplash rats
+				var i:int = Math.random()*9;//random int, 0-9
+				
+				if(e.type == "enteredWater"){ //if event is type ENTERED_WATER
 					
-					if(mSplashVec[i] != mLastSplash){//if the randomly selected
-						//splash is different than the
-						//last one we played...
-						mSplashVec[i].play();        //play it
-						mLastSplash = mSplashVec[i];
-					}else{
-						ratSplashHandler(e);//otherwise, call this function again to
-						//get new random number
-					}}else{
-						return;
-					}
+					if(callCounter == 1){
+						trace("Played forward splash!");
+						
+						if(mSplashVec[i] != mLastSplash){//if the randomly selected
+							//splash is different than the
+							//last one we played...
+							mSplashVec[i].play();        //play it
+							mLastSplash = mSplashVec[i];
+						}else{
+							ratSplashHandler(e);//otherwise, call this function again to
+							//get new random number
+						}}else{
+							return;
+						}}else{ //if event is type EXITED_WATER
+							
+							if(callCounter == 1){
+								trace("Played reverse splash!");
+								
+								if(mSplashRVec[i] != mLastSplashR){//if the randomly selected
+									//splash is different than the
+									//last one we played...
+									mSplashRVec[i].play();        //play it
+									mLastSplashR = mSplashRVec[i];
+								}else{
+									ratSplashHandler(e);//otherwise, call this function again to
+									//get new random number
+								}}else{
+									return;
+								}
+						}
 			} 
 
 			//********** Title Bar Volume Control*********

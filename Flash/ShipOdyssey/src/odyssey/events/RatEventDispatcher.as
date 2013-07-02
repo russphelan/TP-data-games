@@ -25,5 +25,9 @@ package odyssey.events
 		public function dispatchEnterWater(e:Event = null):void{
 			dispatchEvent(new RatEvent(RatEvent.ENTERED_WATER));
 		}
+		
+		public function dispatchExitWater(e:Event = null):void{
+			dispatchEvent(new RatEvent(RatEvent.EXITED_WATER));
+		}
 	}
 }

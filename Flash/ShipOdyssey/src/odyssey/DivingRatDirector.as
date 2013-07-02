@@ -175,8 +175,6 @@ package odyssey
 		// Splashing code. The splash clip removes itself when it's done playing.
 		public static function addSplash( x:Number, goingDown:Boolean):void
 		{
-			_dispatcher.dispatchEnterWater(); //adding a splash means a rat has hit the water
-			
 			if(goingDown)
 				_ratsSubmergedThisFrame++;
 				
